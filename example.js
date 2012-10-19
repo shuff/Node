@@ -1,13 +1,15 @@
 var app = require('express')()
 var server = require('http').createServer(app)
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server)
 server.listen(1331);
 
 
-app.get('/', function (req, res) {
+app.get('/socket.html', function (req, res) {
   res.sendfile(__dirname + '/socket.html');
 });
-
+app.get('/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js', function (req, res) {
+  res.sendfile(__dirname + '/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js');
+});
 io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
